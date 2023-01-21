@@ -7,6 +7,8 @@ let currentOperand = "";
 let previousOperand = "";
 let operation = "";
 
+let pressedEqualOrPercent = false;
+
 btnContainer.addEventListener('click',(e) =>{
     if(e.target.classList.contains('number')){
         appendNumber(e.target.textContent);
@@ -20,8 +22,9 @@ btnContainer.addEventListener('click',(e) =>{
     if (e.target.classList.contains('equal')) {
         calculate();
         updateDisplay();
-        ac.textContent = "AC"
-        previousOperand = currentOperand.toString()
+        ac.textContent = "AC";
+        previousOperand = currentOperand.toString();
+        pressedEqualOrPercent = true;
     }
     if (e.target.classList.contains('ac')) {
         previousOperand = "";
@@ -33,6 +36,7 @@ btnContainer.addEventListener('click',(e) =>{
         if(!currentOperand) return;
         currentOperand = currentOperand / 100;
         updateDisplay();
+        pressedEqualOrPercent = true;
     }
     if (e.target.classList.contains('pm')) {
         if(!currentOperand) return;
@@ -50,9 +54,16 @@ const appendNumber = (num) => {
         return}
     //to handle not entring more then one zero at first
     if ( currentOperand === "0" && num === "0") return
-    currentOperand += num;
-
+    
     if( currentOperand.length > 10) return
+
+    if (pressedEqualOrPercent) {
+        currentOperand = num;
+        pressedEqualOrPercent = false;
+        return
+    }
+
+    currentOperand += num;
 }
 
 const updateDisplay = (num) => {
