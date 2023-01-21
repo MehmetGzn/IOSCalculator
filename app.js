@@ -7,8 +7,6 @@ let currentOperand = "";
 let previousOperand = "";
 let operation = "";
 
-let pressedEqualOrPercent = false;
-
 btnContainer.addEventListener('click',(e) =>{
     if(e.target.classList.contains('number')){
         appendNumber(e.target.textContent);
@@ -23,8 +21,7 @@ btnContainer.addEventListener('click',(e) =>{
         calculate();
         updateDisplay();
         ac.textContent = "AC"
-        previousOperand = currentOperand.toString();
-        pressedEqualOrPercent = true;
+        previousOperand = currentOperand.toString()
     }
     if (e.target.classList.contains('ac')) {
         previousOperand = "";
@@ -36,7 +33,6 @@ btnContainer.addEventListener('click',(e) =>{
         if(!currentOperand) return;
         currentOperand = currentOperand / 100;
         updateDisplay();
-        pressedEqualOrPercent = true;
     }
     if (e.target.classList.contains('pm')) {
         if(!currentOperand) return;
@@ -47,23 +43,16 @@ btnContainer.addEventListener('click',(e) =>{
 
 const appendNumber = (num) => {
     //to handle adding just one dot 
-    if (num === "." && currentOperand.includes(".")) return
+    if (currentOperand.includes(",") && num === ",") return
     
     if ( currentOperand === "0" && num !== ".") {
         currentOperand = num;
         return}
     //to handle not entring more then one zero at first
     if ( currentOperand === "0" && num === "0") return
-    
-    if( currentOperand.length > 10) return
-    
-    if (pressedEqualOrPercent) {
-        currentOperand = num;
-        pressedEqualOrPercent = false;
-        return;
-    }
-    
     currentOperand += num;
+
+    if( currentOperand.length > 10) return
 }
 
 const updateDisplay = (num) => {
