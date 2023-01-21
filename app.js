@@ -43,7 +43,7 @@ btnContainer.addEventListener('click',(e) =>{
 
 const appendNumber = (num) => {
     //to handle adding just one dot 
-    if (currentOperand.includes(",") && num === ",") return
+    if (num === "." && currentOperand.includes(".")) return
     
     if ( currentOperand === "0" && num !== ".") {
         currentOperand = num;
