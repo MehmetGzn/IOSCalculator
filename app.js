@@ -1,11 +1,15 @@
 const prevDisp = document.querySelector('.previousDisplay');
 const currDisp = document.querySelector('.display');
 const ac = document.querySelector('.ac');
+
+
 const btnContainer = document.querySelector('.buttonsDiv');
 
 let currentOperand = "";
 let previousOperand = "";
 let operation = "";
+
+
 
 btnContainer.addEventListener('click',(e) =>{
     if(e.target.classList.contains('number')){
@@ -53,6 +57,10 @@ const appendNumber = (num) => {
     currentOperand += num;
 
     if( currentOperand.length > 10) return
+    //! Check how to handle display more than 12 digit numbers...
+    //! Check how to handle  more than 12 digit numbers...
+    console.log(currentOperand);
+    console.log(previousOperand);
 }
 
 const updateDisplay = (num) => {
